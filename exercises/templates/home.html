@@ -2,10 +2,10 @@
 
 {% block content %}
     <h1>Welcome, {{name}}! </h1>
-    <h2>Today is {{current_date}}</h2>
+    <h2>Today is {{today}}</h2>
     <ul>
         <li>{{ name|upper }}</li>
         <li>{{ name|title }}</li>
-        <li>{{ num|round(2) }}</li>
+        <li>{{ number|round(2) }}</li>
     </ul>
 {% endblock %}

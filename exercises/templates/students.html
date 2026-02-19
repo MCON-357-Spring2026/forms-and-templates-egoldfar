@@ -4,6 +4,7 @@
     <ul>
     {% for student in students %}
         <li>{{ loop.index }}. student</li>
+    {% endfor %}
     </ul>
     <p>Total Number of Students: {{ students|length }}</p>
 {% endblock %}
