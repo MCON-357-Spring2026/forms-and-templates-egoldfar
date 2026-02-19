@@ -1,3 +1,9 @@
 {% extends "base.html" %}
-<h1>TODO: Complete Part 3</h1>
+
+{% block content %}
+    <ul>
+    {% for student in students %}
+        <li>{{ loop.index }}. student</li>
+    </ul>
+    <p>Total Number of Students: {{ students|length }}</p>
 {% endblock %}
