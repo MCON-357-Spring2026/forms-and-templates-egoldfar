@@ -11,9 +11,6 @@ def home():
     return redirect(url_for("add_student"))
 
 
-# ---------------------------------
-# TODO: IMPLEMENT THIS ROUTE
-# ---------------------------------
 @app.route("/add", methods=["GET", "POST"])
 def add_student():
     error = None
@@ -22,39 +19,54 @@ def add_student():
         name = request.form.get("name")
         grade = request.form.get("grade")
 
-        # TODO:
-        # 1. Validate name
-        # 2. Validate grade is number
-        # 3. Validate grade range 0–100
-        # 4. Add to students list as dictionary
-        # 5. Redirect to /students
+        if not name or name.strip() == "":
+            error = "Username is required."
+            return render_template("add.html", error=error, name=name, grade=grade)
 
-        pass
+        else:
+            try:
+                grade = int(grade)
+                if grade < 0 or grade > 100:
+                    error = "Grade must be between 0 and 100."
+                    return render_template("add.html", error=error, name=name, grade=grade)
+                else:
+                    students.append({"name": name, "grade": grade})
+                    return redirect("/students")
+            except ValueError:
+                error = "Grade must be an integer."
+            return render_template("add.html", error=error, name=name, grade=grade)
+    return render_template("add.html")
 
-    return render_template("add.html", error=error)
 
-
-# ---------------------------------
-# TODO: IMPLEMENT DISPLAY
-# ---------------------------------
 @app.route("/students")
 def display_students():
     return render_template("students.html", students=students)
 
 
-# ---------------------------------
-# TODO: IMPLEMENT SUMMARY
-# ---------------------------------
 @app.route("/summary")
 def summary():
-    # TODO:
-    # Calculate:
-    # - total students
-    # - average grade
-    # - highest grade
-    # - lowest grade
+    data = {}
+    message = None
+    if len(students) == 0:
+        message = "There are no students."
+    else:
+        max = 0
+        min = 0
+        total = len(students)
+        average = 0
+        for student in students:
+            average += student["grade"]
+            if student["grade"] > max:
+                max = student["grade"]
+            if student["grade"] < min:
+                min = student["grade"]
+        average /= total
+        data["max"] = max
+        data["min"] = min
+        data["average"] = average
+        data["total"] = total
 
-    return render_template("summary.html")
+    return render_template("summary.html", data=data, message=message)
 
 
 if __name__ == "__main__":
