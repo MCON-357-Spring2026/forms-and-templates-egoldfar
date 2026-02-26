@@ -9,10 +9,10 @@
 
     <form method="POST">
         <label>Name:</label>
-        <input type="text" name="name"><br><br>
+        <input type="text" name="name" value="{{ name or '' }}"><br><br>
 
         <label>Grade:</label>
-        <input type="text" name="grade"><br><br>
+        <input type="text" name="grade" value="{{ grade or '' }}"><br><br>
 
         <input type="submit" value="Add Student">
     </form>

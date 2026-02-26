@@ -2,7 +2,13 @@
 
 {% block content %}
     <h2>Summary</h2>
-
-    <!-- TODO: Display summary statistics -->
+    {% if message %}
+        <p>{{ message }}</p>
+    {% else %}
+        <p>Total Number of Students: {{ data['total'] }}</p>
+        <p>Average Grade: {{ data['average'] }}</p>
+        <p>Maximum Grade: {{ data['max'] }}</p>
+        <p>Minimum Grade: {{ data['min'] }}</p>
+    {% endif %}
 
 {% endblock %}
